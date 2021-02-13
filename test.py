@@ -29,8 +29,8 @@ except Exception as error:
     exit(0)
 
 # Name and content variables
-name = input("Name: ")
-content = input("Content: ")
+name = input(f"{Fore.LIGHTWHITE_EX}Name: ")
+content = input(f"{Fore.LIGHTWHITE_EX}Content: ")
 
 # Set name and content in redis database
 database.set(name, content)
