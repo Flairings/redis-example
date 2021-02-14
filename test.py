@@ -1,8 +1,4 @@
-import json
-import os
-import time
-
-import redis
+import os, time, json, redis
 from colorama import Fore, init
 
 init()
@@ -10,6 +6,7 @@ init()
 # clears the screen for windows and linux
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 # Redis connection settings from redis.json
 with open("redis.json", "r") as db:
@@ -50,4 +47,17 @@ content = input(f"{Fore.LIGHTWHITE_EX}Content: ")
 database.set(name, content)
 
 # Prints the name and content from redis database
-print(f"\n  {Fore.LIGHTBLUE_EX}{name} {Fore.LIGHTWHITE_EX}has content {Fore.LIGHTBLUE_EX}{database.get(name)}")
+time1 = time.perf_counter()
+result = database.get(name).decode('utf-8')
+time2 = time.perf_counter()
+
+if verbose:
+    print(f"\n  {Fore.LIGHTBLUE_EX}{name} {Fore.LIGHTWHITE_EX}has content {Fore.LIGHTBLUE_EX}{result} | time taken: {time2 - time1:0.4f}")
+    time.sleep(5)
+    input(f"\n{Fore.LIGHTWHITE_EX}Program finished... \n ")
+else:
+    print(f"\n  {Fore.LIGHTBLUE_EX}{name} {Fore.LIGHTWHITE_EX}has content {Fore.LIGHTBLUE_EX}{result}")
+    time.sleep(5)
+    input(f"\n{Fore.LIGHTWHITE_EX}Program finished... \n ")
+
+
